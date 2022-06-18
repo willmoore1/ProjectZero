@@ -1,5 +1,7 @@
 # Project 0: Banking Application
 
+#Modify file to verify push ability
+
 * Assigned Date: 6/16/2022
 * Due Date: 6/29/2022
 
