@@ -1,4 +1,4 @@
-package src.com.revature.models;
+package com.revature.models;
 
 import java.io.Serializable;
 import java.util.List;
@@ -35,6 +35,7 @@ public class User implements Serializable{
 		this.role = Role.Customer;
 		this.accounts = accounts;
 	}
+	
 
 	public int getId() {
 		return id;

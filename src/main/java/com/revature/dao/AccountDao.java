@@ -1,4 +1,4 @@
-package src.com.revature.dao;
+package com.revature.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,9 +8,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import src.com.revature.models.Account;
-import src.com.revature.models.User;
-import src.com.revature.util.ConnectionUtil;
+import com.revature.models.Account;
+import com.revature.models.User;
+import com.revature.util.ConnectionUtil;
 
 public class AccountDao implements IAccountDao {
 
@@ -66,7 +66,7 @@ public class AccountDao implements IAccountDao {
 	public Account findById(int id) {
 
 		try (Connection conn = ConnectionUtil.getConnection()) {
-			String sql = "Select * FROM accounts WHERE id = ?";
+			String sql = "Select * FROM accounts WHERE id = ?;";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery(sql);
@@ -85,10 +85,10 @@ public class AccountDao implements IAccountDao {
 
 	}
 
-	public List<Account> findByOwner(int id) { // Add JT
+	public List<Account> findByOwner(int id) {
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			List<Account> accList = new ArrayList<Account>();
-			String sql = "Select * FROM accounts WHERE id = ?";
+			String sql = "Select * FROM accounts WHERE id IN (SELECT account FROM user_accounts_jt WHERE acc_owner = ?));";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery(sql);
@@ -105,7 +105,7 @@ public class AccountDao implements IAccountDao {
 		return null;
 	}
 
-	public boolean update(Account a) { // Add JT
+	public boolean update(Account a) {
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			String sql = "UPDATE accounts SET VALUES (?, ?, ?) WHERE id = ?;";
 			PreparedStatement stmt = conn.prepareStatement(sql);
@@ -127,8 +127,12 @@ public class AccountDao implements IAccountDao {
 	public boolean delete(Account a) { // Add JT
 		
 	try (Connection conn = ConnectionUtil.getConnection()) {
-		String sql = "DELETE FROM accounts WHERE id = ?";
+		String sql = "DELETE FROM accounts WHERE id = ?;";
 		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, a.getId());
+		stmt.executeQuery(sql);
+		sql = "DELETE FROM user_accounts_jt WHERE account = ?;";
+		stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, a.getId());
 		stmt.executeQuery(sql);
 		return(true);

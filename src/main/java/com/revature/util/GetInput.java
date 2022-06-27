@@ -1,4 +1,4 @@
-package src.com.revature.util;
+package com.revature.util;
 
 import java.util.Scanner;
 
@@ -10,7 +10,7 @@ public class GetInput { // make singleton scanner class to avoid closure issues
 	private static Scanner scan = null;
 	public static Scanner getScan() {
 		
-		if(scan.equals(null)) {
+		if(scan == null) {
 			scan = new Scanner(System.in);
 			return scan;
 		} else {

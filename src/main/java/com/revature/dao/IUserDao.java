@@ -1,8 +1,8 @@
-package src.com.revature.dao;
+package com.revature.dao;
 
 import java.util.List;
 
-import src.com.revature.models.User;
+import com.revature.models.User;
 
 public interface IUserDao {
 	//CRUD

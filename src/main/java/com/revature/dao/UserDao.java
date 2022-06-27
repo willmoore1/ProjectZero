@@ -1,17 +1,18 @@
-package src.com.revature.dao;
+package com.revature.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
-import src.com.revature.models.Account;
-import src.com.revature.models.Role;
-import src.com.revature.models.User;
-import src.com.revature.util.ConnectionUtil;
+import com.revature.models.Account;
+import com.revature.models.Role;
+import com.revature.models.User;
+import com.revature.util.ConnectionUtil;
 
 public class UserDao implements IUserDao {
 
@@ -19,12 +20,16 @@ public class UserDao implements IUserDao {
 	public int insert(User u) {
 
 		try (Connection conn = ConnectionUtil.getConnection()) {
-			String sql = "INSERT INTO users (username, pwd) VALUES (?, ?);";
+			String sql = "INSERT INTO users (username, pwd, user_role) VALUES (?, ?, ?);";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, u.getUsername());
 			stmt.setString(2, u.getPassword());
-
-			ResultSet rs = stmt.executeQuery(sql);
+			stmt.setObject(3, u.getRole(), Types.OTHER);
+			//System.out.println(stmt);
+			stmt.execute();
+			sql = "SELECT * FROM users WHERE username = '" + u.getUsername() + "';";
+			Statement stmt2 = conn.createStatement();
+			ResultSet rs = stmt2.executeQuery(sql);
 			if (rs.next()) {
 				return (rs.getInt("id"));
 			}
@@ -81,10 +86,10 @@ public class UserDao implements IUserDao {
 	public User findByUsername(String username) {
 		try (Connection conn = ConnectionUtil.getConnection()) {
 
-			String sql = "SELECT * FROM users WHERE username = ?);";
+			String sql = "SELECT * FROM users WHERE username = ?;";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, username);
-			ResultSet rs = stmt.executeQuery(sql);
+			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
 				int idt = rs.getInt("id");
 				String password = rs.getString("pwd");

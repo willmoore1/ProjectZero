@@ -1,4 +1,4 @@
-package src.com.revature.models;
+package com.revature.models;
 
 public enum Role {
 	Customer,
