@@ -63,5 +63,11 @@ public class AccountService {
 		}
 		return(retList);
 	}
+	public List<Account> viewAllAccounts(Role role, int userID) {
+		//Lets call on the DAO to get the accounts
+		logger.info("An " + role.toString() + " is fetching the whole account list, ID: " + userID);
+		System.out.println("Fetching accounts, please hold...");
+		return(adao.findAll());
+	}
 	
 }

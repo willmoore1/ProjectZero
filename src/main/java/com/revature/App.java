@@ -78,7 +78,7 @@ public class App {
 		if (loggedInUser.getRole() == Role.Employee) {
 			empOnly = " 4 to manage closed accounts,";
 		} else if (loggedInUser.getRole() == Role.Administrator) {
-			empOnly = " 4 to manage closed accounts, 5 to edit an account, 6 to view a list of all accounts,";
+			empOnly = " 4 to manage closed accounts, 5 to view a list of all accounts,";
 		}
 		while (keepGoing) {
 			System.out.println(
@@ -232,11 +232,14 @@ public class App {
 
 			}
 			case 5: {
-
+				List<Account> allList = as.viewAllAccounts(loggedInUser.getRole(), loggedInUser.getId());
+				for(Account a : allList) {
+					System.out.println(a.toString(loggedInUser.getRole()));
+				}
 			}
-			case 6: {
-
-			}
+//			case 6: {
+//				
+//			}
 
 			default: {
 				keepGoing = false;

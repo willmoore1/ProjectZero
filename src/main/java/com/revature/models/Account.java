@@ -1,6 +1,7 @@
 package com.revature.models;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.Objects;
 
 public class Account implements Serializable{
@@ -72,13 +73,14 @@ public class Account implements Serializable{
 
 	@Override
 	public String toString() {
-		return "[balance=" + balance + ", active=" + active + "]";
+		return "[balance = " + DecimalFormat.getCurrencyInstance().format(balance) + "]";
 	}
 
-//	@Override
-//	public String toString() {
-//		return "Account [id=" + id + ", balance=" + balance + ", active=" + active + "]";
-//	}
+	public String toString(Role role) {
+		if(role == Role.Administrator)
+			return "Account [id=" + id + ", balance=" + balance + ", active=" + active + "]";
+		else return null;
+	}
 	
 	
 

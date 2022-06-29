@@ -31,7 +31,13 @@ public class AccountDao implements IAccountDao {
 			stmt.setInt(1, u.getId());
 			stmt.setInt(2, acc_id);
 			stmt.execute();
-			u.getAccounts().add(a);
+			if(u.getAccounts() != null)
+				u.getAccounts().add(a);
+			else  {
+				List<Account> tempList = new ArrayList<Account>();
+				tempList.add(a);
+				u.setAccounts(tempList);
+			}
 			
 			return acc_id;
 
