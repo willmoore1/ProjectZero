@@ -1,10 +1,12 @@
 package com.revature.service;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.revature.dao.IUserDao;
 import com.revature.dao.UserDao;
 import com.revature.exceptions.RegisterUserFailedException;
+import com.revature.models.Account;
 import com.revature.models.User;
 import com.revature.util.GetInput;
 
@@ -59,5 +61,8 @@ public class UserService {
 		}
 		System.out.println("Too many incorrect attempts, please try again");
 		return null;
+	}
+	public List<User> findUsers(Account a) {
+		return(udao.findByAcc(a.getId()));
 	}
 }
