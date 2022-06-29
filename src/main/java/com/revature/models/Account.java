@@ -20,10 +20,10 @@ public class Account implements Serializable{
 	}
 	
 	// for creating account in DB
-	public Account(double balance, int owner) { 
+	public Account(double balance) { 
 		super();
 		this.balance = balance;
-		this.active = true;
+		this.active = false;
 	}
 	public Account(int id, double balance, boolean active) {
 		super();
@@ -72,8 +72,13 @@ public class Account implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Account [id=" + id + ", balance=" + balance + ", active=" + active + "]";
+		return "[balance=" + balance + ", active=" + active + "]";
 	}
+
+//	@Override
+//	public String toString() {
+//		return "Account [id=" + id + ", balance=" + balance + ", active=" + active + "]";
+//	}
 	
 	
 
